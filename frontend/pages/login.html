@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskForge — Sign In</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ── RESET ─────────────────────────── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* ── VARIABLES ─────────────────────── */
+      :root {
+        --cream: #faf8f3;
+        --green: #1d7a4f;
+        --green2: #25a068;
+        --dark: #1a1a1a;
+        --muted: #6b6b6b;
+        --border: #e0dbd0;
+        --red: #d94f4f;
+        --white: #ffffff;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--cream);
+        color: var(--dark);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ── TOPBAR ──────────────────────── */
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 40px;
+        border-bottom: 1px solid var(--border);
+        background: var(--white);
+      }
+
+      .logo {
+        font-family: "Fraunces", serif;
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--green);
+        text-decoration: none;
+      }
+
+      .topbar-link {
+        font-size: 14px;
+        color: var(--muted);
+        text-decoration: none;
+      }
+      .topbar-link:hover {
+        color: var(--dark);
+      }
+
+      /* ── MAIN ────────────────────────── */
+      .wrapper {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+      }
+
+      /* ── CARD ────────────────────────── */
+      .card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 48px 44px;
+        width: 100%;
+        max-width: 420px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        animation: fadeUp 0.45s ease both;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .card-icon {
+        width: 52px;
+        height: 52px;
+        background: var(--green);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 24px;
+      }
+
+      .card-title {
+        font-family: "Fraunces", serif;
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: -0.8px;
+        margin-bottom: 6px;
+      }
+
+      .card-sub {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 32px;
+      }
+
+      /* ── FIELDS ──────────────────────── */
+      .field {
+        margin-bottom: 18px;
+      }
+
+      .field label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 7px;
+      }
+
+      .field input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        color: var(--dark);
+        background: var(--cream);
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s,
+          background 0.2s;
+      }
+      .field input:focus {
+        border-color: var(--green);
+        background: var(--white);
+        box-shadow: 0 0 0 3px rgba(29, 122, 79, 0.12);
+      }
+      .field input::placeholder {
+        color: #bbb;
+      }
+
+      /* ── ERRORS ──────────────────────── */
+      .error {
+        font-size: 12px;
+        color: var(--red);
+        margin-top: 5px;
+        display: none;
+      }
+      .error.visible {
+        display: block;
+      }
+
+      .error-banner {
+        background: #fdf0f0;
+        border: 1px solid #f5c6c6;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 13px;
+        color: var(--red);
+        margin-bottom: 20px;
+        display: none;
+      }
+      .error-banner.visible {
+        display: block;
+      }
+
+      /* ── BUTTON ──────────────────────── */
+      .btn {
+        width: 100%;
+        padding: 13px;
+        background: var(--green);
+        color: var(--white);
+        border: none;
+        border-radius: 10px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        margin-top: 6px;
+        transition:
+          background 0.2s,
+          transform 0.15s,
+          box-shadow 0.2s;
+      }
+      .btn:hover {
+        background: var(--green2);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(29, 122, 79, 0.25);
+      }
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      /* ── DIVIDER ─────────────────────── */
+      .divider {
+        text-align: center;
+        font-size: 13px;
+        color: var(--muted);
+        margin: 24px 0;
+        position: relative;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 38%;
+        height: 1px;
+        background: var(--border);
+      }
+      .divider::before {
+        left: 0;
+      }
+      .divider::after {
+        right: 0;
+      }
+
+      .switch {
+        text-align: center;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .switch a {
+        color: var(--green);
+        font-weight: 500;
+        text-decoration: none;
+      }
+      .switch a:hover {
+        text-decoration: underline;
+      }
+
+      /* ── FOOTER ──────────────────────── */
+      footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 12px;
+        color: var(--muted);
+        border-top: 1px solid var(--border);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <a class="logo" href="#">⚡ TaskForge</a>
+      <a class="topbar-link" href="signup.html">New here? Sign up →</a>
+    </header>
+
+    <!-- MAIN CARD -->
+    <main class="wrapper">
+      <div class="card">
+        <div class="card-icon">🔑</div>
+        <h1 class="card-title">Welcome back.</h1>
+        <p class="card-sub">Sign in to your TaskForge workspace.</p>
+
+        <!-- Error banner — shown by JS when credentials are wrong -->
+        <div class="error-banner" id="credError">
+          Wrong email or password. Please try again.
+        </div>
+
+        <!-- EMAIL -->
+        <div class="field">
+          <label for="email">Email address</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="you@company.com"
+            autocomplete="email"
+          />
+          <span class="error" id="emailError">Please enter a valid email.</span>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="field">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+          />
+          <span class="error" id="passError">Password cannot be empty.</span>
+        </div>
+
+        <!-- SUBMIT BUTTON -->
+        <button class="btn" onclick="handleLogin()">
+          Sign in to TaskForge
+        </button>
+
+        <div class="divider">or</div>
+
+        <div class="switch">
+          Don't have an account? <a href="signup.html">Create one free</a>
+        </div>
+      </div>
+    </main>
+
+    <footer>&copy; 2025 TaskForge · Built with Node.js + PostgreSQL</footer>
+
+    <script>
+      // ── Helpers ───────────────────────────────────────────────
+      function showErr(id, show) {
+        document.getElementById(id).classList.toggle("visible", show);
+      }
+      function isValidEmail(val) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      }
+
+      // ── Login Handler ─────────────────────────────────────────
+      async function handleLogin() {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+
+        // Reset all errors first
+        showErr("emailError", false);
+        showErr("passError", false);
+        showErr("credError", false);
+
+        // Client-side validation
+        let valid = true;
+        if (!isValidEmail(email)) {
+          showErr("emailError", true);
+          valid = false;
+        }
+        if (!password) {
+          showErr("passError", true);
+          valid = false;
+        }
+        if (!valid) return;
+
+        // ── Uncomment when backend is ready ──────────────────────
+        /*
+      try {
+        const res = await fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        if (res.ok) {
+          window.location.href = '/home';  // Backend sends you here
+        } else {
+          showErr('credError', true);
+        }
+      } catch (err) {
+        console.error('Login error:', err);
+      }
+      */
+
+        // ── Demo mode (works without backend) ────────────────────
+        sessionStorage.setItem("loggedIn", "true");
+        sessionStorage.setItem("userEmail", email);
+        window.location.href = "home.html";
+      }
+
+      // Press Enter to submit
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") handleLogin();
+      });
+    </script>
+  </body>
+</html>

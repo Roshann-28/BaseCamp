@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskForge — Create Account</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --cream: #faf8f3;
+        --green: #1d7a4f;
+        --green2: #25a068;
+        --dark: #1a1a1a;
+        --muted: #6b6b6b;
+        --border: #e0dbd0;
+        --red: #d94f4f;
+        --white: #ffffff;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--cream);
+        color: var(--dark);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ── TOPBAR ──────────────────────── */
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 40px;
+        border-bottom: 1px solid var(--border);
+        background: var(--white);
+      }
+      .logo {
+        font-family: "Fraunces", serif;
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--green);
+        text-decoration: none;
+      }
+      .topbar-link {
+        font-size: 14px;
+        color: var(--muted);
+        text-decoration: none;
+      }
+      .topbar-link:hover {
+        color: var(--dark);
+      }
+
+      /* ── MAIN ────────────────────────── */
+      .wrapper {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+      }
+
+      /* ── CARD ────────────────────────── */
+      .card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 48px 44px;
+        width: 100%;
+        max-width: 440px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        animation: fadeUp 0.45s ease both;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .card-icon {
+        width: 52px;
+        height: 52px;
+        background: var(--green);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 24px;
+      }
+
+      .card-title {
+        font-family: "Fraunces", serif;
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: -0.8px;
+        margin-bottom: 6px;
+      }
+      .card-sub {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 32px;
+      }
+
+      /* ── FIELDS ──────────────────────── */
+      .field {
+        margin-bottom: 16px;
+      }
+
+      .field label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 7px;
+      }
+
+      /* Optional helper text below label */
+      .field .hint {
+        font-size: 11px;
+        color: var(--muted);
+        margin-bottom: 7px;
+        display: block;
+      }
+
+      .field input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        color: var(--dark);
+        background: var(--cream);
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s,
+          background 0.2s;
+      }
+      .field input:focus {
+        border-color: var(--green);
+        background: var(--white);
+        box-shadow: 0 0 0 3px rgba(29, 122, 79, 0.12);
+      }
+      .field input::placeholder {
+        color: #bbb;
+      }
+
+      /* ── ERRORS ──────────────────────── */
+      .error {
+        font-size: 12px;
+        color: var(--red);
+        margin-top: 5px;
+        display: none;
+      }
+      .error.visible {
+        display: block;
+      }
+
+      /* ── PASSWORD STRENGTH BAR ───────── */
+      .strength-wrap {
+        margin-top: 8px;
+        display: none; /* shown by JS when user types */
+      }
+      .strength-wrap.visible {
+        display: block;
+      }
+
+      .strength-bar {
+        height: 4px;
+        border-radius: 100px;
+        background: var(--border);
+        overflow: hidden;
+        margin-bottom: 4px;
+      }
+      .strength-fill {
+        height: 100%;
+        border-radius: 100px;
+        width: 0%;
+        transition:
+          width 0.3s,
+          background 0.3s;
+      }
+      .strength-label {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      /* ── BUTTON ──────────────────────── */
+      .btn {
+        width: 100%;
+        padding: 13px;
+        background: var(--green);
+        color: var(--white);
+        border: none;
+        border-radius: 10px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        margin-top: 8px;
+        transition:
+          background 0.2s,
+          transform 0.15s,
+          box-shadow 0.2s;
+      }
+      .btn:hover {
+        background: var(--green2);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(29, 122, 79, 0.25);
+      }
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      /* ── TERMS NOTE ──────────────────── */
+      .terms {
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 16px;
+        line-height: 1.6;
+      }
+
+      /* ── DIVIDER ─────────────────────── */
+      .divider {
+        text-align: center;
+        font-size: 13px;
+        color: var(--muted);
+        margin: 24px 0;
+        position: relative;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 38%;
+        height: 1px;
+        background: var(--border);
+      }
+      .divider::before {
+        left: 0;
+      }
+      .divider::after {
+        right: 0;
+      }
+
+      .switch {
+        text-align: center;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .switch a {
+        color: var(--green);
+        font-weight: 500;
+        text-decoration: none;
+      }
+      .switch a:hover {
+        text-decoration: underline;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 12px;
+        color: var(--muted);
+        border-top: 1px solid var(--border);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <a class="logo" href="#">⚡ TaskForge</a>
+      <a class="topbar-link" href="login.html"
+        >Already have an account? Sign in</a
+      >
+    </header>
+
+    <!-- MAIN CARD -->
+    <main class="wrapper">
+      <div class="card">
+        <div class="card-icon">🚀</div>
+        <h1 class="card-title">Create your account.</h1>
+        <p class="card-sub">It's free. No credit card needed.</p>
+
+        <!-- USERNAME -->
+        <div class="field">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="yourname"
+            autocomplete="username"
+          />
+          <span class="error" id="usernameError"
+            >Username must be at least 3 characters.</span
+          >
+        </div>
+
+        <!-- EMAIL -->
+        <div class="field">
+          <label for="email">Email address</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="you@company.com"
+            autocomplete="email"
+          />
+          <span class="error" id="emailError">Please enter a valid email.</span>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="field">
+          <label for="password">Password</label>
+          <span class="hint">Minimum 6 characters</span>
+          <input
+            type="password"
+            id="password"
+            placeholder="Choose a strong password"
+            autocomplete="new-password"
+            oninput="checkStrength(this.value)"
+          />
+          <span class="error" id="passError"
+            >Password must be at least 6 characters.</span
+          >
+
+          <!-- Password strength indicator -->
+          <div class="strength-wrap" id="strengthWrap">
+            <div class="strength-bar">
+              <div class="strength-fill" id="strengthFill"></div>
+            </div>
+            <span class="strength-label" id="strengthLabel">Weak</span>
+          </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <button class="btn" onclick="handleSignup()">Create my account</button>
+
+        <p class="terms">
+          By signing up, you agree to our Terms of Service<br />and Privacy
+          Policy.
+        </p>
+
+        <div class="divider">or</div>
+
+        <div class="switch">
+          Already have an account? <a href="login.html">Sign in</a>
+        </div>
+      </div>
+    </main>
+
+    <footer>&copy; 2025 TaskForge · Built with Node.js + PostgreSQL</footer>
+
+    <script>
+      // ── Helpers ────────────────────────────────────────────────
+      function showErr(id, show) {
+        document.getElementById(id).classList.toggle("visible", show);
+      }
+      function isValidEmail(val) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      }
+
+      // ── Password Strength ──────────────────────────────────────
+      function checkStrength(val) {
+        const wrap = document.getElementById("strengthWrap");
+        const fill = document.getElementById("strengthFill");
+        const label = document.getElementById("strengthLabel");
+
+        if (!val) {
+          wrap.classList.remove("visible");
+          return;
+        }
+        wrap.classList.add("visible");
+
+        let score = 0;
+        if (val.length >= 6) score++;
+        if (val.length >= 10) score++;
+        if (/[A-Z]/.test(val)) score++;
+        if (/[0-9]/.test(val)) score++;
+        if (/[^A-Za-z0-9]/.test(val)) score++;
+
+        const levels = [
+          { w: "20%", bg: "#e74c3c", text: "Weak" },
+          { w: "40%", bg: "#e67e22", text: "Fair" },
+          { w: "60%", bg: "#f1c40f", text: "Good" },
+          { w: "80%", bg: "#2ecc71", text: "Strong" },
+          { w: "100%", bg: "#1d7a4f", text: "Very strong" },
+        ];
+        const lvl = levels[Math.min(score - 1, 4)] || levels[0];
+        fill.style.width = lvl.w;
+        fill.style.background = lvl.bg;
+        label.textContent = lvl.text;
+      }
+
+      // ── Signup Handler ─────────────────────────────────────────
+      async function handleSignup() {
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+
+        // Reset errors
+        showErr("usernameError", false);
+        showErr("emailError", false);
+        showErr("passError", false);
+
+        // Validate
+        let valid = true;
+        if (username.length < 3) {
+          showErr("usernameError", true);
+          valid = false;
+        }
+        if (!isValidEmail(email)) {
+          showErr("emailError", true);
+          valid = false;
+        }
+        if (password.length < 6) {
+          showErr("passError", true);
+          valid = false;
+        }
+        if (!valid) return;
+
+        // ── Uncomment when backend is ready ──────────────────────
+        /*
+      try {
+        const res = await fetch('/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email, password })
+        });
+        if (res.ok) {
+          window.location.href = '/home';
+        } else {
+          const data = await res.json();
+          alert(data.message || 'Signup failed.');
+        }
+      } catch (err) {
+        console.error('Signup error:', err);
+      }
+      */
+
+        // ── Demo mode ─────────────────────────────────────────────
+        sessionStorage.setItem("loggedIn", "true");
+        sessionStorage.setItem("userEmail", email);
+        sessionStorage.setItem("username", username);
+        window.location.href = "home.html";
+      }
+
+      // Press Enter to submit
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") handleSignup();
+      });
+    </script>
+  </body>
+</html>
