@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In - Campify</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+      }
+
+      /* ================================
+       NAVBAR
+    ================================ */
+      nav {
+        background-color: #1a7a4a;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      .nav-back {
+        color: white;
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      .nav-back:hover {
+        text-decoration: underline;
+      }
+
+      /* ================================
+       PAGE CENTER
+    ================================ */
+      .page-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 56px);
+        padding: 40px 20px;
+      }
+
+      /* ================================
+       SIGN IN CARD
+    ================================ */
+      .signin-card {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 40px 36px;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .card-logo {
+        text-align: center;
+        font-size: 36px;
+        margin-bottom: 8px;
+      }
+
+      .card-title {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 6px;
+      }
+
+      .card-subtitle {
+        text-align: center;
+        font-size: 13px;
+        color: #888;
+        margin-bottom: 28px;
+      }
+
+      /* ================================
+       ERROR BANNER
+    ================================ */
+      .error-banner {
+        display: none;
+        background-color: #ffe0e0;
+        border: 1px solid #f44;
+        border-radius: 6px;
+        padding: 10px 14px;
+        font-size: 13px;
+        color: #c00;
+        text-align: center;
+        margin-bottom: 16px;
+      }
+
+      /* ================================
+       FORM FIELDS
+    ================================ */
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 6px;
+        color: #333;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 15px;
+        font-family: Arial, sans-serif;
+        outline: none;
+      }
+
+      .form-group input:focus {
+        border-color: #1a7a4a;
+      }
+
+      /* red border on invalid field */
+      .form-group input.invalid {
+        border-color: red;
+      }
+
+      .field-error {
+        display: none;
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
+      }
+
+      /* ================================
+       FORGOT PASSWORD
+    ================================ */
+      .forgot-link {
+        display: block;
+        text-align: right;
+        font-size: 13px;
+        color: #1a7a4a;
+        text-decoration: none;
+        margin-top: -10px;
+        margin-bottom: 20px;
+      }
+
+      .forgot-link:hover {
+        text-decoration: underline;
+      }
+
+      /* ================================
+       SUBMIT BUTTON
+    ================================ */
+      .submit-btn {
+        width: 100%;
+        background-color: #1a7a4a;
+        color: white;
+        padding: 13px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+      }
+
+      .submit-btn:hover {
+        background-color: #155e38;
+      }
+
+      /* ================================
+       DIVIDER
+    ================================ */
+      .divider {
+        text-align: center;
+        color: #bbb;
+        font-size: 13px;
+        margin: 20px 0;
+      }
+
+      /* ================================
+       BOTTOM LINK
+    ================================ */
+      .bottom-text {
+        text-align: center;
+        font-size: 14px;
+        color: #555;
+      }
+
+      .bottom-text a {
+        color: #1a7a4a;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      .bottom-text a:hover {
+        text-decoration: underline;
+      }
+
+      /* ================================
+       SUCCESS BOX (hidden by default)
+    ================================ */
+      .success-box {
+        display: none;
+        background-color: #e6f4ec;
+        border: 1px solid #1a7a4a;
+        border-radius: 8px;
+        padding: 30px 20px;
+        text-align: center;
+      }
+
+      .success-box .success-icon {
+        font-size: 44px;
+        margin-bottom: 12px;
+      }
+
+      .success-box h3 {
+        color: #1a7a4a;
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+
+      .success-box p {
+        color: #555;
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      .success-box .go-home {
+        background-color: #1a7a4a;
+        color: white;
+        padding: 10px 22px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .success-box .go-home:hover {
+        background-color: #155e38;
+      }
+
+      /* ================================
+       DEMO HINT BOX
+    ================================ */
+      .demo-hint {
+        background-color: #f0f8ff;
+        border: 1px solid #90cdf4;
+        border-radius: 6px;
+        padding: 10px 14px;
+        font-size: 13px;
+        color: #2b6cb0;
+        margin-bottom: 18px;
+        text-align: center;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ======== NAVBAR ======== -->
+    <nav>
+      <a href="index.html" class="logo">⛺ Campify</a>
+      <a href="index.html" class="nav-back">← Back to Home</a>
+    </nav>
+
+    <!-- ======== CENTERED CARD ======== -->
+    <div class="page-wrapper">
+      <div class="signin-card">
+        <div class="card-logo">⛺</div>
+        <div class="card-title">Welcome back!</div>
+        <div class="card-subtitle">Sign in to your Campify account</div>
+
+        <!-- Demo credentials hint -->
+        <div class="demo-hint">
+          🔑 Demo login:<br />
+          Email: <strong>demo@campify.com</strong><br />
+          Password: <strong>password123</strong>
+        </div>
+
+        <!-- Error banner (shown on wrong credentials) -->
+        <div class="error-banner" id="errorBanner">
+          Incorrect email or password. Please try again.
+        </div>
+
+        <!-- ======== SIGN IN FORM ======== -->
+        <div id="signinForm">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="you@example.com" />
+            <div class="field-error" id="emailError">
+              Please enter your email.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Your password" />
+            <div class="field-error" id="passwordError">
+              Please enter your password.
+            </div>
+          </div>
+
+          <a href="#" class="forgot-link">Forgot your password?</a>
+
+          <button class="submit-btn" onclick="handleSignin()">Sign In →</button>
+
+          <div class="divider">— or —</div>
+
+          <p class="bottom-text">
+            Don't have an account? <a href="index.html">Go back to home</a>
+          </p>
+        </div>
+        <!-- end #signinForm -->
+
+        <!-- ======== SUCCESS BOX (hidden until login works) ======== -->
+        <div class="success-box" id="successBox">
+          <div class="success-icon">🎉</div>
+          <h3>You're signed in!</h3>
+          <p>Welcome back to Campify. Your projects are waiting.</p>
+          <a href="index.html" class="go-home">Go to Home →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== JAVASCRIPT ======== -->
+    <script>
+      function handleSignin() {
+        // Step 1: Read what the user typed
+        var email = document.getElementById("email").value.trim();
+        var password = document.getElementById("password").value;
+
+        // Step 2: Get the input boxes
+        var emailInput = document.getElementById("email");
+        var passwordInput = document.getElementById("password");
+
+        // Step 3: Hide all error messages first (reset state)
+        document.getElementById("emailError").style.display = "none";
+        document.getElementById("passwordError").style.display = "none";
+        document.getElementById("errorBanner").style.display = "none";
+
+        emailInput.classList.remove("invalid");
+        passwordInput.classList.remove("invalid");
+
+        // Step 4: Validate — check if fields are empty
+        var isValid = true;
+
+        if (email === "") {
+          document.getElementById("emailError").style.display = "block";
+          emailInput.classList.add("invalid");
+          isValid = false;
+        }
+
+        if (password === "") {
+          document.getElementById("passwordError").style.display = "block";
+          passwordInput.classList.add("invalid");
+          isValid = false;
+        }
+
+        // Step 5: If both fields are filled, check credentials
+        if (isValid === true) {
+          // Demo credentials (in a real app this would talk to a server)
+          var correctEmail = "demo@campify.com";
+          var correctPassword = "password123";
+
+          if (email === correctEmail && password === correctPassword) {
+            // Correct! Hide form and show success box
+            document.getElementById("signinForm").style.display = "none";
+            document.getElementById("successBox").style.display = "block";
+          } else {
+            // Wrong credentials — show error banner
+            document.getElementById("errorBanner").style.display = "block";
+            emailInput.classList.add("invalid");
+            passwordInput.classList.add("invalid");
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
